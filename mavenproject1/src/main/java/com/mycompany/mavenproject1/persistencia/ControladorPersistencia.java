@@ -5,6 +5,7 @@
 package com.mycompany.mavenproject1.persistencia;
 
 import com.mycompany.mavenproject1.logica.Alumno;
+import com.mycompany.mavenproject1.logica.Carrera;
 import com.mycompany.mavenproject1.persistencia.exceptions.NonexistentEntityException;
 import java.util.List;
 import java.util.logging.Level;
@@ -17,15 +18,15 @@ import java.util.logging.Logger;
 public class ControladorPersistencia {
 
     AlumnoJpaController aluJPA = new AlumnoJpaController();
-    CarreraJpaController CarreJPA = new CarreraJpaController();
+    CarreraJpaController carreraJPA = new CarreraJpaController();
 
+    // Métodos para Alumno
     public void crearAlumno(Alumno al) {
         aluJPA.create(al);
     }
 
     public Alumno buscarAlumnos(int id) {
-        Alumno AL = aluJPA.findAlumno(id);
-        return AL;
+        return aluJPA.findAlumno(id);
     }
 
     public List<Alumno> listarAlumno() {
@@ -33,7 +34,6 @@ public class ControladorPersistencia {
     }
 
     public void eliminarAlumno(int id) {
-
         try {
             aluJPA.destroy(id);
         } catch (NonexistentEntityException ex) {
@@ -41,4 +41,24 @@ public class ControladorPersistencia {
         }
     }
 
+    // Métodos para Carrera
+    public void crearCarrera(Carrera car) {
+        carreraJPA.create(car);
+    }
+
+    public Carrera buscarCarrera(int id) {
+        return carreraJPA.findCarrera(id);
+    }
+
+    public List<Carrera> listarCarrera() {
+        return carreraJPA.findCarreraEntities();
+    }
+
+    public void eliminarCarrera(int id) {
+        try {
+            carreraJPA.destroy(id);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(ControladorPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

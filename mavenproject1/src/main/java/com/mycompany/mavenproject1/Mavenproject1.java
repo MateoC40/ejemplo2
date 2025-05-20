@@ -5,6 +5,7 @@ package com.mycompany.mavenproject1;
 
 import com.mycompany.mavenproject1.persistencia.ControladorPersistencia;
 import com.mycompany.mavenproject1.logica.Alumno;
+import com.mycompany.mavenproject1.logica.Carrera;
 import java.util.*;
 
 /**
@@ -17,48 +18,34 @@ public class Mavenproject1 {
 
         ControladorPersistencia Contro = new ControladorPersistencia();
 
-        // Crear alumnos
+        // Crear carreras
         
-        Alumno alu1 = new Alumno(1, "Juan", "Perez", new Date());
-        Alumno alu2 = new Alumno(2, "Carlos", "Rios", new Date());
-        Alumno alu3 = new Alumno(3, "Marcelo", "Quizpe", new Date());
-        Alumno alu4 = new Alumno(4, "Maria", "Castro", new Date());
-
+        Carrera carrera1 = new Carrera(1, "Sistemas", "Tecnicatura");
+        Carrera carrera2 = new Carrera(2, "Medicina", "Salud");
         
         
-        Contro.crearAlumno(alu1);
-        Contro.crearAlumno(alu2);
-        Contro.crearAlumno(alu3);
-        Contro.crearAlumno(alu4);
+        //Contro.crearCarrera(carrera1);
+        //Contro.crearCarrera(carrera2);
         
         
 
-        // Buscar un alumno
-        Alumno Buscado1 = Contro.buscarAlumnos(1);
+        // Crear alumnos y asignar carrera
+        Alumno alu1 = new Alumno(1, "Juan", "Perez", new Date(), carrera1);
+        Alumno alu2 = new Alumno(2, "Carlos", "Rios", new Date(), carrera2);
 
-        if (Buscado1 != null) {
-            System.out.println(Buscado1.getNombre());
-        } else {
-            System.out.println("Alumno no encontrado.");
+        //Contro.crearAlumno(alu1);
+        //Contro.crearAlumno(alu2);
+
+        // Buscar y mostrar
+        Alumno buscado = Contro.buscarAlumnos(1);
+        
+        
+        if (buscado != null) {
+            System.out.println(buscado.getId()+ " - " +buscado.getNombre() + " - " +buscado.getApellido()+ " - "  + buscado.getCarrera().getIdCarrera()+ " - " +buscado.getCarrera().getNombreCarrera());
         }
-
-        // Listar todos los alumnos
-        List<Alumno> Listacompleta = Contro.listarAlumno();
-        for (Alumno nombres : Listacompleta) {
-            System.out.println(nombres.getNombre() + " " + nombres.getApellido());
-        }
-
-        // Eliminar un alumno
-        Contro.eliminarAlumno(4);  // ID del alumno a eliminar
-        System.out.println("Alumno con ID 5 eliminado.");
-
-        // Listar nuevamente después de la eliminación
-        List<Alumno> ListaActualizada = Contro.listarAlumno();
-        System.out.println("Lista actualizada de alumnos:");
-        for (Alumno nombres : ListaActualizada) {
-            System.out.println(nombres.getNombre() + " " + nombres.getApellido());
+        else{
+            System.out.println("no se encontro alumno");
         }
         
-        Contro.crearAlumno(alu4);
     }
 }
